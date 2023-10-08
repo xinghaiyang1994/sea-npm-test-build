@@ -23,13 +23,13 @@
     "access": "public"
   },
   "devDependencies": {
-    "@types/react": "^18.2.25",
+    "@types/react": "^17.0.0",
     "@types/three": "^0.152.1",
     "father": "^4.3.5"
   },
   "dependencies": {
     "classnames": "^2.3.1",
-    "react": "^18.0.0",
+    "react": "^17.0.0",
     "three": "^0.153.0"
   }
 }
