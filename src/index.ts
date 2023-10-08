@@ -1,3 +1,6 @@
-export default 'Hello father 4!';
+import TransparentVideo from './TransparentVideo';
+import useTransparentVideo from './useTransparentVideo';
 
-export const getName = (value: string) => value
+export type { ITransparentVideoRef, RENDER_MODE } from './constants';
+
+export { useTransparentVideo, TransparentVideo };
