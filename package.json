@@ -1,6 +1,6 @@
 {
   "name": "sea-npm-test-build",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "测试 npm 打包",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
