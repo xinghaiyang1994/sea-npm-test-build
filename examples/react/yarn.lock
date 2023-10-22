@@ -9588,10 +9588,10 @@ scroll-into-view-if-needed@^3.0.3:
   dependencies:
     compute-scroll-into-view "^3.0.2"
 
-sea-npm-test-build@0.0.4:
-  version "0.0.4"
-  resolved "https://registry.npmmirror.com/sea-npm-test-build/-/sea-npm-test-build-0.0.4.tgz#1891fb17c68003f2b052fe1ca3d494a03141974d"
-  integrity sha512-pX+IfczXQGRLl3b725433HEjNIWQAZtFJWuNOo7UZ3bOnBwneaBw0SUol8NJMe9ycmMct0tW+M90AIZrQ5B/kg==
+sea-npm-test-build@0.0.6:
+  version "0.0.6"
+  resolved "https://registry.npmmirror.com/sea-npm-test-build/-/sea-npm-test-build-0.0.6.tgz#ff6415a92ecfa9907697dd0cf182bb9901076bd6"
+  integrity sha512-D2MVETC/FeXIxNvR9oYSxKkFZAS14rZNXHJl9roLfeu4Qyfl39JJlTGXWmYQCJqkCTltLPBkDHu//WS6DA1zpQ==
   dependencies:
     classnames "^2.3.1"
     three "^0.153.0"
