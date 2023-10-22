@@ -26,11 +26,29 @@ const useTransparentVideo = (config: IConfig) => {
     getContainerDom,
     renderMode = RENDER_MODE.auto,
     canvasClassName,
+    fps,
     debug,
     debugStatsMode = 1,
     debugStatsFpsChange,
     debugStatsMsChange,
   } = config;
+
+  /** fps 信息 */
+  const fpsInfo = useMemo(() => {
+    const isValid = typeof fps === 'number';
+    if (!isValid) {
+      return {
+        /** 是否有效 */
+        isValid,
+        /** 单位时间 */
+        unitTime: 0,
+      };
+    }
+    return {
+      isValid,
+      unitTime: parseInt((1000 / fps).toString(), 10),
+    };
+  }, [fps]);
 
   /** debug 模式下的日志 */
   const debugLog = useCallback(
@@ -53,6 +71,8 @@ const useTransparentVideo = (config: IConfig) => {
 
   /** 是否开启动画(用于 requestAnimationFrame 持续的执行) */
   const isOpenAnimation = useRef(false);
+  /** 上次渲染的时间戳 */
+  const lastRenderTimestampRef = useRef(0);
 
   /** 开始用 three 转换为透明视频 */
   const startThreeTransform = async () => {
@@ -82,7 +102,7 @@ const useTransparentVideo = (config: IConfig) => {
 
     // 渲染器及 dom 挂载
     const renderer = new WebGLRenderer();
-    renderer.setPixelRatio(window.devicePixelRatio);
+    // renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setClearColor(0xffffff, 0);
     renderer.setSize(width, height / 2);
     setDomStyle(renderer.domElement, {
@@ -136,9 +156,16 @@ const useTransparentVideo = (config: IConfig) => {
     });
 
     const render = () => {
-      stats?.update();
+      const now = Date.now();
 
-      renderer.render(scene, camera);
+      // 没配置fps 或达到渲染时间间隔
+      if (!fpsInfo.isValid || now - lastRenderTimestampRef.current > fpsInfo.unitTime) {
+        lastRenderTimestampRef.current = now;
+
+        stats?.update();
+
+        renderer.render(scene, camera);
+      }
 
       isOpenAnimation.current && requestAnimationFrame(render);
     };
@@ -207,20 +234,26 @@ const useTransparentVideo = (config: IConfig) => {
     });
 
     const render = () => {
-      stats?.update();
+      const now = Date.now();
+      // 没配置fps 或达到渲染时间间隔
+      if (!fpsInfo.isValid || now - lastRenderTimestampRef.current > fpsInfo.unitTime) {
+        lastRenderTimestampRef.current = now;
 
-      // 利用隐藏的 canvas 处理数据
-      hideCt.drawImage(videoDom, 0, 0, width, height);
-      const imgData = hideCt.getImageData(0, 0, width, height);
+        stats?.update();
 
-      const halfLength = imgData.data.length / 2;
-      for (let i = 0; i < halfLength; i += 4) {
-        const targetIndex = halfLength + i;
-        imgData.data[i + 3] = imgData.data[targetIndex];
+        // 利用隐藏的 canvas 处理数据
+        hideCt.drawImage(videoDom, 0, 0, width, height);
+        const imgData = hideCt.getImageData(0, 0, width, height);
+
+        const halfLength = imgData.data.length / 2;
+        for (let i = 0; i < halfLength; i += 4) {
+          const targetIndex = halfLength + i;
+          imgData.data[i + 3] = imgData.data[targetIndex];
+        }
+
+        // 数据给实际的 canvas 渲染
+        realCt.putImageData(imgData, 0, 0);
       }
-
-      // 数据给实际的 canvas 渲染
-      realCt.putImageData(imgData, 0, 0);
 
       isOpenAnimation.current && requestAnimationFrame(render);
     };

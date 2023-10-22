@@ -4,12 +4,12 @@ import { ICommonConfig, ITransparentVideoRef } from './constants';
 
 import useTransparentVideo from './useTransparentVideo';
 
-interface IProps extends ICommonConfig {
+export interface ITransparentVideoProps extends ICommonConfig {
   className?: string;
   style?: React.CSSProperties;
 }
 
-const TransparentVideo = forwardRef<ITransparentVideoRef, IProps>((props, ref) => {
+const TransparentVideo = forwardRef<ITransparentVideoRef, ITransparentVideoProps>((props, ref): any => {
   const { className, style, ...restProps } = props;
   const containerDom = useRef<HTMLDivElement>(null);
   const { startTransform } = useTransparentVideo({

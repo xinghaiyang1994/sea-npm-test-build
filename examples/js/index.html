@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>测试</title>
+  <style>
+    .tv_canvas {
+      height: 150px;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <button id="start">开始转换</button>
+    <video id="orgin_video" height="300" controls autoPlay loop muted
+      src="../react/public/statics/video/transparent-video-demo.mp4"></video>
+    <div id="tv_root"></div>
+
+  </div>
+  <script src="../../dist/umd/sea-npm-test-build.min.js"></script>
+  <script>
+    window.onload = () => {
+      console.log('==>TransparentVideoClass', window.TransparentVideoClass)
+
+      const domStart = document.getElementById('start')
+
+      const tv = new window.TransparentVideoClass({
+        rootId: 'tv_root',
+        getVideoDom: () => document.getElementById('orgin_video'),
+        canvasClassName: 'tv_canvas'
+      })
+
+      domStart.addEventListener('click', () => {
+        tv.startTransform()
+      })
+    }
+
+  </script>
+</body>
+
+</html>

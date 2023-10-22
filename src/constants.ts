@@ -59,6 +59,8 @@ export interface ICommonConfig {
   getVideoDom: () => HTMLVideoElement | null;
   /** 渲染 canvas 元素的 className(该 className 只在 startTransform 时生效, 后期动态修改无效) */
   canvasClassName?: string;
+  /** 渲染的 fps.不传则按 requestAnimationFrame 的间隔渲染 */
+  fps?: number;
   /** debug 模式会开启日志 */
   debug?: boolean;
   /** debug 模式下 stats 插件模式,默认为 1. 0: fps, 1:单帧渲染耗时(毫秒)  */

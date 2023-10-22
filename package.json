@@ -1,6 +1,6 @@
 {
   "name": "sea-npm-test-build",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "测试 npm 打包",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
@@ -24,14 +24,14 @@
   },
   "devDependencies": {
     "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
     "@types/three": "^0.152.1",
     "father": "^4.3.5"
   },
-  "peerDependencies": {
-    "react": "^17.0.0"
-  },
   "dependencies": {
     "classnames": "^2.3.1",
-    "three": "^0.153.0"
+    "three": "^0.153.0",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0"
   }
 }
